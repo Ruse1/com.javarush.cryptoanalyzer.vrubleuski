@@ -9,17 +9,17 @@ public class Decryption {
     private String writeFilePath;
     private int key;
     private Language language;
-    private List alphabet;
+    private List<Character> alphabet;
 
-    public Decryption(String filePath, String writeFilePath, int key) {
-        this.readFilePath = filePath;
+    public Decryption(String readFilePath, String writeFilePath, int key) {
+        this.readFilePath = readFilePath;
         this.writeFilePath = writeFilePath;
         this.key = key;
         this.language = Language.DEFAULT;
     }
 
-    public Decryption(String filePath, String writeFilePath, int key, Language language) {
-        this.readFilePath = filePath;
+    public Decryption(String readFilePath, String writeFilePath, int key, Language language) {
+        this.readFilePath = readFilePath;
         this.writeFilePath = writeFilePath;
         this.key = key;
         this.language = language;

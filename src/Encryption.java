@@ -6,7 +6,7 @@ public class Encryption {
     private String writeFilePath;
     private int key;
     private Language language;
-    private List alphabet;
+    private List<Character> alphabet;
 
     public Encryption(String readFilePath, String writeFilePath, int key) {
         this.readFilePath = readFilePath;
