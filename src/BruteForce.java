@@ -1,22 +1,9 @@
 import java.io.*;
-import java.util.List;
 
-public class BruteForce {
-    private String readFilePath;
-    private String writeFilePath;
-    private Language language;
-    private List<Character> alphabet;
-
-    public BruteForce(String readFilePath, String writeFilePath) {
-        this.readFilePath = readFilePath;
-        this.writeFilePath = writeFilePath;
-        this.language = Language.DEFAULT;
-    }
+public class BruteForce extends Cryptography {
 
     public BruteForce(String readFilePath, String writeFilePath, Language language) {
-        this.readFilePath = readFilePath;
-        this.writeFilePath = writeFilePath;
-        this.language = language;
+        super(readFilePath, writeFilePath, language);
     }
 
     public void toDecryptionBruteForce() {
@@ -26,11 +13,16 @@ public class BruteForce {
         for (StringBuilder sb : allCombinations) {
             String[] strings = sb.toString().split(" ");
             int lengthWord = (sb.length() - strings.length) / strings.length;
-            System.out.println(lengthWord);
-            if (lengthWord > 3 && lengthWord < 9) {
-                System.out.println(sb);
-                System.out.println("*".repeat(20));
+            if (language == Language.RUS || language == Language.DEFAULT) {
+                if (lengthWord > 3 && lengthWord < 9) {
+                    writeToFile(sb);
+                }
+            } else if (language == Language.ENG) {
+                if (lengthWord > 3 && lengthWord < 8) {
+                    writeToFile(sb);
+                }
             }
+
         }
     }
 
@@ -60,6 +52,14 @@ public class BruteForce {
         return result;
     }
 
+    private void writeToFile(StringBuilder text) {
+        try (FileWriter wr = new FileWriter(writeFilePath, true)) {
+            wr.write(String.valueOf(text));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private StringBuilder[] getAllCombinations(StringBuilder text) {
         StringBuilder[] result = new StringBuilder[alphabet.size()];
         for (int key = 0; key < alphabet.size(); key++) {
@@ -71,20 +71,16 @@ public class BruteForce {
                     if (alphabet.contains(symbol)) {
                         int index = alphabet.indexOf(symbol);
                         int shift = shift(index, key);
-//                            wr.write(Character.toUpperCase(alphabet.get(shift)));
                         result[key].append(Character.toUpperCase(alphabet.get(shift)));
                     } else {
-//                            wr.write(Character.toUpperCase(symbol));
                         result[key].append(Character.toUpperCase(symbol));
                     }
                 } else {
                     if (alphabet.contains(symbol)) {
                         int index = alphabet.indexOf(symbol);
                         int shift = shift(index, key);
-//                            wr.write(alphabet.get(shift));
                         result[key].append(alphabet.get(shift));
                     } else {
-//                            wr.write(symbol);
                         result[key].append(symbol);
                     }
                 }
@@ -93,32 +89,3 @@ public class BruteForce {
         return result;
     }
 }
-/*
-  try (FileReader fr = new FileReader(readFilePath)) {
-                for (int key = 2; key < alphabet.size(); key++) {
-                    wr.write("Текст№" + key);
-                    while (fr.ready()) {
-                        int result = fr.read();
-                        char symbol = (char) result;
-                        System.out.println(key);
-                        if (Character.isUpperCase(symbol)) {
-                            symbol = Character.toLowerCase(symbol);
-                            if (alphabet.contains(symbol)) {
-                                int index = alphabet.indexOf(symbol);
-                                int shift = shift(index, key);
-                                wr.write(Character.toUpperCase((Character) alphabet.get(shift)));
-                            } else {
-                                wr.write(Character.toUpperCase(symbol));
-                            }
-                        } else {
-                            if (alphabet.contains(symbol)) {
-                                int index = alphabet.indexOf(symbol);
-                                int shift = shift(index, key);
-                                wr.write((char) alphabet.get(shift));
-                            } else {
-                                wr.write(symbol);
-                            }
-                        }
-                    }
-                }
- */

@@ -2,27 +2,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
-public class Decryption {
-    private String readFilePath;
-    private String writeFilePath;
-    private int key;
-    private Language language;
-    private List<Character> alphabet;
-
-    public Decryption(String readFilePath, String writeFilePath, int key) {
-        this.readFilePath = readFilePath;
-        this.writeFilePath = writeFilePath;
-        this.key = key;
-        this.language = Language.DEFAULT;
-    }
+public class Decryption extends Cryptography {
 
     public Decryption(String readFilePath, String writeFilePath, int key, Language language) {
-        this.readFilePath = readFilePath;
-        this.writeFilePath = writeFilePath;
-        this.key = key;
-        this.language = language;
+        super(readFilePath, writeFilePath, key, language);
     }
 
     public void doDecrypt() {

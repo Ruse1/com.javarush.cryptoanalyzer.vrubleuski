@@ -1,25 +1,9 @@
 import java.io.*;
-import java.util.List;
 
-public class Encryption {
-    private String readFilePath;
-    private String writeFilePath;
-    private int key;
-    private Language language;
-    private List<Character> alphabet;
-
-    public Encryption(String readFilePath, String writeFilePath, int key) {
-        this.readFilePath = readFilePath;
-        this.writeFilePath = writeFilePath;
-        this.key = key;
-        this.language = Language.DEFAULT;
-    }
+public class Encryption extends Cryptography {
 
     public Encryption(String readFilePath, String writeFilePath, int key, Language language) {
-        this.readFilePath = readFilePath;
-        this.writeFilePath = writeFilePath;
-        this.key = key;
-        this.language = language;
+        super(readFilePath, writeFilePath, key, language);
     }
 
     public void doEncrypt() {
