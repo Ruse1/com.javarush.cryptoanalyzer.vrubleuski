@@ -59,7 +59,7 @@ public class Decryption {
     }
 
     private int shift(int index) {
-        key = Math.abs(key);
+        key = Math.abs(key % alphabet.size());
         int result = index - key;
         if (result < 0) {
             return alphabet.size() + (result % alphabet.size());

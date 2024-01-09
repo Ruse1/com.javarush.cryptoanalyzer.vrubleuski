@@ -15,14 +15,14 @@ public class CryptoAnalyzer {
     private static final String WRONG_FORMAT = "Неправильный формат файла %s, требуется txt\n";
     private static final String NOT_EXIST = "Файла не существует или указан неправильный путь!";
     private static final String KEY_ENCRYPTION = "Введите ключ шифрования";
-    private static final String KEY_ERROR = "Вы ввели не число, попробуйте все заново";
+    private static final String KEY_ERROR = "Вы ввели не число в поле ключа, попробуйте все заново";
     private static final String ENCRYPTION_READY = "Файл зашифрован!";
     private static final String DECRYPTION_READY = "Файл расшифрован!";
     private static final String VOCABULARY = "Выберите язык текста для шифрования. Напечатав:\n" +
             "Русский\n" + "Английский";
     private static final String RUS = "Выбран \"Русский язык\"";
     private static final String ENG = "Выбран \"Английский язык\"";
-    private static final String DEFAULT = "Выбран язык по умолчанию т.к. указан не корректный словарь";
+    private static final String DEFAULT = "Выбран язык по умолчанию т.к. указанного словаря не существует";
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class CryptoAnalyzer {
 
     private static void toEncryptOrDecrypt(String mode) {
         try {
-            int number = Integer.parseInt(mode);     //F:\Test1\Text.txt
+            int number = Integer.parseInt(mode);     //F:\\Test1\\Text.txt
             if (number == 1) {                       //F:\\Test1\\Text1.txt
                 String[] allData = enterData(number);
                 if (checkPath(allData[0]) && checkPath(allData[1]) && checkKey(allData[2])) {
@@ -60,7 +60,14 @@ public class CryptoAnalyzer {
                     System.out.println(DECRYPTION_READY);
                 }
             } else if (number == 3) {
-
+                String[] allData = enterData(number);
+                if (checkPath(allData[0]) && checkPath(allData[1]) && checkKey(allData[2])) {
+                    int key = Integer.parseInt(allData[2]);
+                    Language language = checkLanguage(allData[3]);
+                    BruteForce bruteForce = new BruteForce(allData[0],allData[1],language);
+                    bruteForce.toDecryptionBruteForce();
+                    System.out.println(DECRYPTION_READY);
+                }
             } else {
                 System.out.println(MISTAKE);
             }
