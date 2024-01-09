@@ -11,7 +11,7 @@ public class Vocabulary {
             't', 'u', 'v', 'w', 'x', 'y', 'z', '.', ',', '«', '»',
             ':', '!', '?', ' ');
 
-    public static List<Character> checkVocabulary(Language language) {
+    public static List<Character> getVocabulary(Language language) {
         switch (language) {
             case RUS:
                 return ALPHABET_RUS;

@@ -7,19 +7,19 @@ public class BruteForce extends Cryptography {
     }
 
     public void toDecryptionBruteForce() {
-        alphabet = Vocabulary.checkVocabulary(language);
-        StringBuilder stringBuilder = readData();
-        StringBuilder[] allCombinations = getAllCombinations(stringBuilder);
-        for (StringBuilder sb : allCombinations) {
-            String[] strings = sb.toString().split(" ");
-            int lengthWord = (sb.length() - strings.length) / strings.length;
+        alphabet = Vocabulary.getVocabulary(language);
+        StringBuilder text = readTextFile();
+        StringBuilder[] allCombinations = getAllCombinations(text);
+        for (StringBuilder txt : allCombinations) {
+            String[] words = txt.toString().split(" ");
+            int averageLengthWord = (txt.length() - words.length) / words.length;
             if (language == Language.RUS || language == Language.DEFAULT) {
-                if (lengthWord > 3 && lengthWord < 9) {
-                    writeToFile(sb);
+                if (averageLengthWord > 3 && averageLengthWord < 9) {
+                    writeToFile(txt);
                 }
             } else if (language == Language.ENG) {
-                if (lengthWord > 3 && lengthWord < 8) {
-                    writeToFile(sb);
+                if (averageLengthWord > 3 && averageLengthWord < 8) {
+                    writeToFile(txt);
                 }
             }
 
@@ -36,12 +36,12 @@ public class BruteForce extends Cryptography {
         }
     }
 
-    private StringBuilder readData() {
+    private StringBuilder readTextFile() {
         StringBuilder result = new StringBuilder();
         try (FileReader fr = new FileReader(readFilePath);
              BufferedReader bf = new BufferedReader(fr)) {
             while (bf.ready()) {
-                result.append(bf.readLine() + "\n");
+                result.append(bf.readLine()).append("\n");
             }
             result.deleteCharAt(result.lastIndexOf("\n"));
         } catch (FileNotFoundException e) {

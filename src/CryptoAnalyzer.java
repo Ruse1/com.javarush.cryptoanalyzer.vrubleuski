@@ -29,7 +29,7 @@ public class CryptoAnalyzer {
             int number = Integer.parseInt(mode);     //F:\\Test1\\Text.txt
             if (number == 1) {                       //F:\\Test1\\Text1.txt
                 String[] allData = enterData(number);
-                if (checkPath(allData[0]) && checkPath(allData[1]) && checkKey(allData[2])) {
+                if (checkInputPath(allData[0]) && checkOutPath(allData[1]) && checkKey(allData[2])) {
                     int key = Integer.parseInt(allData[2]);
                     Language language = checkLanguage(allData[3]);
                     Encryption encryption = new Encryption(allData[0], allData[1], key, language);
@@ -38,7 +38,7 @@ public class CryptoAnalyzer {
                 }
             } else if (number == 2) {
                 String[] allData = enterData(number);
-                if (checkPath(allData[0]) && checkPath(allData[1]) && checkKey(allData[2])) {
+                if (checkInputPath(allData[0]) && checkOutPath(allData[1]) && checkKey(allData[2])) {
                     int key = Integer.parseInt(allData[2]);
                     Language language = checkLanguage(allData[3]);
                     Decryption encryption = new Decryption(allData[0], allData[1], key, language);
@@ -47,7 +47,7 @@ public class CryptoAnalyzer {
                 }
             } else if (number == 3) {
                 String[] allData = enterData(number);
-                if (checkPath(allData[0]) && checkPath(allData[1])) {
+                if (checkInputPath(allData[0]) && checkOutPath(allData[1])) {
                     Language language = checkLanguage(allData[3]);
                     BruteForce bruteForce = new BruteForce(allData[0], allData[1], language);
                     bruteForce.toDecryptionBruteForce();
@@ -61,7 +61,7 @@ public class CryptoAnalyzer {
         }
     }
 
-    private boolean checkPath(String inputPath) {
+    private boolean checkInputPath(String inputPath) {
         Path result = null;
         try {
             result = Path.of(inputPath);
@@ -78,6 +78,22 @@ public class CryptoAnalyzer {
                 System.out.printf(Message.WRONG_FORMAT, array[array.length - 1]);
                 return false;
             }
+        } else {
+            System.out.println(Message.NOT_EXIST);
+            return false;
+        }
+    }
+
+    private boolean checkOutPath(String outPath) {
+        Path result = null;
+        try {
+            result = Path.of(outPath);
+        } catch (InvalidPathException e) {
+            System.out.println(Message.NOT_EXIST);
+            return false;
+        }
+        if (outPath.endsWith(".txt")) {
+            return true;
         } else {
             System.out.println(Message.NOT_EXIST);
             return false;

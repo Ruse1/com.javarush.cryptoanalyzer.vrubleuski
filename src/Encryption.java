@@ -7,7 +7,7 @@ public class Encryption extends Cryptography {
     }
 
     public void doEncrypt() {
-        alphabet = Vocabulary.checkVocabulary(language);
+        alphabet = Vocabulary.getVocabulary(language);
         try (FileReader fr = new FileReader(readFilePath);
              FileWriter wr = new FileWriter(writeFilePath)) {
             while (fr.ready()) {
@@ -18,7 +18,7 @@ public class Encryption extends Cryptography {
                     if (alphabet.contains(symbol)) {
                         int index = alphabet.indexOf(symbol);
                         int shift = shift(index);
-                        wr.write(Character.toUpperCase((Character) alphabet.get(shift)));
+                        wr.write(Character.toUpperCase(alphabet.get(shift)));
                     } else {
                         wr.write(Character.toUpperCase(symbol));
                     }
@@ -26,7 +26,7 @@ public class Encryption extends Cryptography {
                     if (alphabet.contains(symbol)) {
                         int index = alphabet.indexOf(symbol);
                         int shift = shift(index);
-                        wr.write((char) alphabet.get(shift));
+                        wr.write(alphabet.get(shift));
                     } else {
                         wr.write(symbol);
                     }
@@ -48,7 +48,6 @@ public class Encryption extends Cryptography {
             return result;
         }
     }
-
 }
 
 
