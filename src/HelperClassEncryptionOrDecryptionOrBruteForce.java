@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.List;
 
 public class HelperClassEncryptionOrDecryptionOrBruteForce {
-    public void doEncryptionOrDecryption(String readFilePath, String writeFilePath, int key, Language language, String mode) {
+    protected void doEncryptionOrDecryption(String readFilePath, String writeFilePath, int key, Language language, String mode) {
         List<Character> alphabet = Vocabulary.getVocabulary(language);
         try (FileReader fr = new FileReader(readFilePath);
              FileWriter wr = new FileWriter(writeFilePath)) {
@@ -18,7 +18,7 @@ public class HelperClassEncryptionOrDecryptionOrBruteForce {
         }
     }
 
-    public void doDecryptionBruteForce(String readFilePath, String writeFilePath, Language language, String mode) {
+    protected void doDecryptionBruteForce(String readFilePath, String writeFilePath, Language language, String mode) {
         List<Character> alphabet = Vocabulary.getVocabulary(language);
         StringBuilder text = readTxtFile(readFilePath);
         StringBuilder[] allCombinations = getAllDecryptionCombinations(text, alphabet, mode);
