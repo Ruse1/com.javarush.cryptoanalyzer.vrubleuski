@@ -1,4 +1,3 @@
-import java.io.*;
 
 public class Encryption extends Cryptography {
 
@@ -7,47 +6,10 @@ public class Encryption extends Cryptography {
     }
 
     public void doEncrypt() {
-        alphabet = Vocabulary.getVocabulary(language);
-        try (FileReader fr = new FileReader(readFilePath);
-             FileWriter wr = new FileWriter(writeFilePath)) {
-            while (fr.ready()) {
-                int result = fr.read();
-                char symbol = (char) result;
-                if (Character.isUpperCase(symbol)) {
-                    symbol = Character.toLowerCase(symbol);
-                    if (alphabet.contains(symbol)) {
-                        int index = alphabet.indexOf(symbol);
-                        int shift = shift(index);
-                        wr.write(Character.toUpperCase(alphabet.get(shift)));
-                    } else {
-                        wr.write(Character.toUpperCase(symbol));
-                    }
-                } else {
-                    if (alphabet.contains(symbol)) {
-                        int index = alphabet.indexOf(symbol);
-                        int shift = shift(index);
-                        wr.write(alphabet.get(shift));
-                    } else {
-                        wr.write(symbol);
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        HelperClassEncryptionOrDecryptionOrBruteForce helper = new HelperClassEncryptionOrDecryptionOrBruteForce();
+        helper.doEncryptionOrDecryption(this.readFilePath, this.writeFilePath, this.key, this.language, "Encryption");
     }
 
-    private int shift(int index) {
-        key = Math.abs(key);
-        int result = index + key;
-        if (result >= alphabet.size()) {
-            return result % alphabet.size();
-        } else {
-            return result;
-        }
-    }
 }
 
 

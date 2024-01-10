@@ -25,7 +25,7 @@ public class CryptoAnalyzer {
     }
 
     private void toEncryptOrDecrypt(String mode) {
-        try {
+        try { //2147483647
             int number = Integer.parseInt(mode);     //F:\\Test1\\Text.txt
             if (number == 1) {                       //F:\\Test1\\Text1.txt
                 String[] allData = enterData(number);
@@ -50,7 +50,7 @@ public class CryptoAnalyzer {
                 if (checkInputPath(allData[0]) && checkOutPath(allData[1])) {
                     Language language = checkLanguage(allData[3]);
                     BruteForce bruteForce = new BruteForce(allData[0], allData[1], language);
-                    bruteForce.toDecryptionBruteForce();
+                    bruteForce.doDecryptionBruteForce();
                     System.out.println(Message.DECRYPTION_READY);
                 }
             } else {
@@ -123,6 +123,10 @@ public class CryptoAnalyzer {
         int result = 0;
         try {
             result = Integer.parseInt(key);
+            if ((int) Math.log10(result) + 1 >= 10) {
+                System.out.println(Message.KEY_ERROR);
+                return false;
+            }
         } catch (NumberFormatException e) {
             System.out.println(Message.KEY_ERROR);
             return false;
@@ -132,6 +136,7 @@ public class CryptoAnalyzer {
 
     private static Language checkLanguage(String language) {
         if (language.equalsIgnoreCase(Language.RUS.getName())) {
+            System.out.println(Integer.MAX_VALUE);
             System.out.println(Message.RUS);
             return Language.RUS;
         } else if (language.equalsIgnoreCase(Language.ENG.getName())) {
